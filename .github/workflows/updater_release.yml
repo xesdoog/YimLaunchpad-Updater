@@ -30,7 +30,7 @@ jobs:
 
     - name: Build Executable
       run: |
-        yes | nuitka --onefile --windows-console-mode=force --windows-icon-from-ico="./icon/ylp_icon.ico" ylp_updater.py
+        nuitka --assume-yes --onefile --windows-console-mode=force --windows-icon-from-ico="./icon/ylp_icon.ico" ylp_updater.py
 
     - name: Generate Build Info
       id: var
@@ -43,7 +43,7 @@ jobs:
       with:
         name: binary
         path: |
-          dist\ylp_updater.exe
+          ./ylp_updater.exe
 
   create_release:
     runs-on: ubuntu-latest
