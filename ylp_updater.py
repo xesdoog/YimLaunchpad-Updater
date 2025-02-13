@@ -33,7 +33,7 @@ def get_release_tag():
         s = str(result)
         result = s.replace('</a>', '')
         charLength = len(result)
-        latest_version = result[charLength - 6:]
+        latest_version = result[charLength - 7:]
         log.info(f'Latest YimLaunchpad version: {latest_version}')
         return latest_version   
     except requests.exceptions.RequestException as e:
