@@ -30,7 +30,7 @@ jobs:
 
     - name: Build Executable
       run: |
-        python -m nuitka --onefile --windows-console-mode=force --windows-icon-from-ico="./icon/ylp_icon.ico" ylp_updater.py
+        yes | nuitka --onefile --windows-console-mode=force --windows-icon-from-ico="./icon/ylp_icon.ico" ylp_updater.py
 
     - name: Generate Build Info
       id: var
