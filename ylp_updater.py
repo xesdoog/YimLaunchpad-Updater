@@ -5,9 +5,8 @@ import requests
 import shutil
 import sys
 
-from alive_progress import alive_bar
-from bs4            import BeautifulSoup
-from time           import sleep
+from bs4  import BeautifulSoup
+from time import sleep
 
 
 LAUNCHPAD_PATH = os.path.join(os.getenv("APPDATA"), "YimLaunchpad")
@@ -89,12 +88,15 @@ def updater():
                     r.raise_for_status()
                     total_size = int(r.headers.get("content-length", 0))
                     log.info(f'Starting download...')
-                    log.info(f'Total size: {"{:.2f}".format(total_size/1024)}MB')
-                    with alive_bar(int(total_size/1024)) as bar:
-                        with open(LOCAL_EXE, "wb") as f:
-                            for chunk in r.iter_content(1024):
-                                f.write(chunk)
-                                bar()
+                    log.info(f'Total size: {"{:.2f}".format(total_size/1048576)}MB')
+                    downloaded_size = 0
+                    with open(LOCAL_EXE, "wb") as f:
+                        for chunk in r.iter_content(chunk_size = 128000):  # 64 KB chunks
+                            f.write(chunk)
+                            downloaded_size += len(chunk)
+                            progress = downloaded_size / total_size * 100
+                            display_progress = int(progress)
+                            print("", end = f"\r    Downloading YMU {REM_VER}:   {display_progress} %", flush = True)
                 print("")
             except requests.exceptions.RequestException as e:
                 print(f"    \033[91mFailed to download YimLaunchpad. Check your Internet connection and try again.\nError message: {e}\033[0m")
