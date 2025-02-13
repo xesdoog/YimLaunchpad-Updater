@@ -14,7 +14,7 @@ LOG_FILE = os.path.join(LAUNCHPAD_PATH, "yimlaunchpad.log")
 logfile = open(LOG_FILE, "a")
 logfile.write("Updating Yimlaunchpad...\n\n")
 logfile.close()
-log = logging.getLogger("UPDATER")
+log = logging.getLogger("[UPDATER]")
 logging.basicConfig(
     filename = LOG_FILE,
     encoding = 'utf-8',
