@@ -89,10 +89,10 @@ def updater():
                     r.raise_for_status()
                     total_size = int(r.headers.get("content-length", 0))
                     log.info(f'Starting download...')
-                    log.info(f'Total size: {"{:.2f}".format(total_size/1048576)}MB')
-                    with open(LOCAL_EXE, "wb") as f:
-                        with alive_bar(total_size) as bar:
-                            for chunk in r.iter_content(128000):
+                    log.info(f'Total size: {"{:.2f}".format(total_size/1024)}MB')
+                    with alive_bar(int(total_size/1024)) as bar:
+                        with open(LOCAL_EXE, "wb") as f:
+                            for chunk in r.iter_content(1024):
                                 f.write(chunk)
                                 bar()
                 print("")
